@@ -17,7 +17,7 @@ const Cart = (props) => {
   const cartItems = DUMMY_ITEMS.map((item) => <li>{item.name}</li>);
 
   return (
-    <Modal>
+    <Modal onClick={props.onClose}>
       <ul>{cartItems}</ul>
       <div className={classes.total}>
         <span>Total Amount</span>
