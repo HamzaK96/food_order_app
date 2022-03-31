@@ -21,7 +21,7 @@ const cartReducer = (state, action) => {
       return defaultCartState;
   }
 
-  return defaultCartState;
+//   return defaultCartState;
 };
 
 const CartProvider = (props) => {
