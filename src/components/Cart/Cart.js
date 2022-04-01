@@ -4,14 +4,37 @@ import classes from "./Cart.module.css";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "../UI/Modal/Modal";
 import CartContext from "../../store/cart-context";
+import CartItem from "./CartItem";
 
 const Cart = (props) => {
+  //hear for context here.
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
 
-  const cartItems = cartCtx.items.map((item) => <li>{item.name}</li>);
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({
+      ...item,
+      amount: 1,
+    });
+  };
 
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
+
+  const cartItems = cartCtx.items.map((item) => (
+    <CartItem
+      key={item.id}
+      name={item.name}
+      amount={item.amount}
+      price={item.price}
+      onAdd={cartItemAddHandler.bind(null, item)}
+      onRemove={cartItemRemoveHandler.bind(null, item.id)}
+    />
+  ));
+
+  //display button only if user has any items in cart.
   const hasItems = cartCtx.items.length > 0;
 
   return (
